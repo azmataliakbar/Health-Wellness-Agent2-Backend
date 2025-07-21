@@ -1,203 +1,198 @@
-# Health & Wellness Planner Agent
 
-🌿 An AI-powered health and wellness assistant built with OpenAI Agents SDK
+1-NextJs Frontend Chat Bot:
 
-## Features
+![Health Bot](/public/chat1.png)
 
-- Natural language understanding of health/fitness goals
-- Personalized meal plan generation
-- Custom workout recommendations
-- Progress tracking
-- Specialized agent handoffs (nutrition, injury support)
-- Real-time streaming responses
+2-API Backend Chat Web Page:
 
-## Project Structure
+![API Screen](/public/chat2.png)
+
+
+# 🧠 Health & Wellness Agent2 (Backend)
+
+This is the backend for the **Health & Wellness Assistant**, built using **FastAPI** and enhanced with OpenAI for intelligent responses when local logic can't handle the query. It powers the frontend chat interface, delivering real-time fitness, nutrition, and wellness advice.
+
+> 🌐 **Live API**:
+> 🔗 [Backend URL](https://health-wellness-agent2-backend.onrender.com)
+> 🔧 [Swagger Docs](https://health-wellness-agent2-backend.onrender.com/docs)
+
+---
+
+## ⚙️ Technologies Used
+
+- 🐍 **Python 3.11+**
+- ⚡ **FastAPI** – For async API endpoints
+- 🔐 **OpenAI** – For AI-powered fallback answers
+- 📦 **Pydantic** – Data validation
+- 🧪 **Uvicorn** – ASGI web server
+- 🌍 **CORS** enabled for full frontend-backend communication
+- 🔐 **python-dotenv** – For secure API key management
+
+---
+
+## 📁 Project Structure
 health_wellness_agent/
-├── main.py # CLI interface
-├── agent.py # Main agent logic
-├── context.py # User session management
-├── guardrails.py # Input/output validation
-├── requirements.txt # Dependencies
-├── tools/ # All agent tools
-└── agents/ # Specialized agents
+├── main.py # CLI chatbot interface with fallback logic
+├── fast_api.py # FastAPI server exposing /query endpoint
+├── agent.py # Core logic for health query handling
+├── context.py # Session-based memory handling
+├── guardrails.py # Input/output sanitization (optional)
+├── requirements.txt # All dependencies
+├── tools/ # Modular health tools (e.g. BMI, hydration)
+└── agents/ # Specialized sub-agents
+
+---
+
+## 🔌 API Endpoints
+
+### `GET /`
+Returns service status and local documentation hint.
+
+### `POST /query?user_input=...`
+Handles a health query. First tries local logic. If not understood, falls back to OpenAI.
+
+#### Example Response:
+```json
+{
+  "response": "Drink at least 2-3 liters of water daily.",
+  "source": "local",
+  "tokens_used": null
+}
+If OpenAI is used:
+{
+  "response": "Include more fiber and vegetables in your diet.",
+  "source": "openai",
+  "tokens_used": 43
+}
+
+🧠 How It Works
+Local Response First:
+The HealthWellnessAgent checks if the query matches known health rules.
+
+OpenAI Fallback:
+If no local logic applies, it calls GPT-3.5-Turbo with strict formatting guidelines:
+
+Short, clear facts
+
+No medical diagnoses
+
+Uses bullet points when instructional
+
+Always recommends consulting a doctor for uncertain topics
+
+Source Tagging:
+Each response tells you if it came from "local" or "openai".
+
+🖥️ Run Locally
+1. Clone the Repo
+git clone https://github.com/yourusername/health-wellness-backend.git
+cd health-wellness-backend
+
+2. Set Up Environment
+Create a .env file:
+OPENAI_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 
-## Installation
+3. Install Dependencies
+pip install -r requirements.txt
 
-1. Clone this repository
-2. Create and activate a virtual environment:
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # Linux/Mac)
-   venv\Scripts\activate    # Windows
+4. Run Server
+uvicorn fast_api:app --reload
 
-Install dependencies:
-   pip install -r requirements.txt
+🔗 Visit http://127.0.0.1:8000/docs for Swagger UI
+📡 CORS is enabled, so your frontend can connect seamlessly
 
-   (.venv) C:\Users\WWW.SZLAIWIIT.COM\python_projects\health_wellness_agent1>python main.py
-🌿 Health & Wellness Assistant 🌿
-You: "I want to lose 10 pounds in 2 months
-Assistant: Focus on cardio and calorie deficit
-You: How can I build muscle effectively?
-Assistant: Focus on strength training and protein
-You: My goal is to improve my endurance
-Assistant: Your goal has been recorded. How can I help further?
-You: Can you suggest a vegetarian meal plan?
-Assistant: Vegetarian meal plan:
-- Lentil curry
-- Veg stir fry
-- Falafel wrap
-You: I need gluten-free meal ideas
-Assistant: Gluten-free meal plan:
-- Grilled salmon
-- Quinoa bowl
-- Roast chicken
-You: What's a good vegan diet for weight loss?
-Assistant: Vegan meal plan:
-- Tofu scramble
-- Chickpea salad
-- Vegan chili
-You: Recommend a cardio workout routine
-Assistant: Recommended cardio workout: 30 min running + 15 min cycling
-You: Suggest strength training exercises
-Assistant: Recommended strength workout: 3 sets of squats, pushups, pullups
-You: What's a good HIIT workout?
-Assistant: Recommended hiit workout: 20 sec sprint, 40 sec walk (10 rounds)
-You: I want to lose weight - suggest meals and workouts
-Assistant: Standard meal plan:
-- Grilled chicken
-- Steamed veggies
-- Brown rice
-You: Help me build muscle with diet and exercise plans
-Assistant: Standard meal plan:
-- Grilled chicken
-- Steamed veggies
-- Brown rice
-You: How can I improve my sleep quality?
-Assistant: Your goal has been recorded. How can I help further?
-You: What are some healthy breakfast options?
-Assistant: Your goal has been recorded. How can I help further?
-You: Suggest ways to reduce stress
-Assistant: Your goal has been recorded. How can I help further?
-You: exit
+🚀 Deployment (Render)
+Push your code to GitHub.
 
-(.venv) C:\Users\WWW.SZLAIWIIT.COM\python_projects\health_wellness_agent1>
+Log into Render
 
-https://www.microsoft.com/en-gb/windows/laptop-buying-guide?persona=GP_T2_EOS_WW&OCID=CGE_inp_Devices_EOS_868dk7xtu&form=M7001T&msclkid=32578b2bdb9e125cabbde350e87b2587#retailer-panel-banner
+Create a new Web Service:
 
-# -----------------------------------------------------------------
+Environment: Python 3
 
-🎯 Goal
-Keep fast_api.py always online (as backend API)
+Start command: uvicorn fast_api:app --host 0.0.0.0 --port 10000
 
-Deploy Next.js frontend that communicates with the backend
+Add environment variable: OPENAI_API_KEY
 
-Ensure both work even after system restart
+Deploy and grab your public backend URL.
 
-Use a free or affordable hosting solution
+💡 Features
+✅ Local + AI fallback logic
+✅ OpenAI token tracking
+✅ Bullet-format answers when instructional
+✅ Works seamlessly with any frontend (React, Next.js, etc.)
+✅ CLI chatbot for testing
+✅ Error messages with full traceback for debugging
 
-✅ Your Deployment Options
-🔁 Backend (FastAPI) Hosting Options
-| Platform           | Free Tier                                | Notes                          |
-| ------------------ | ---------------------------------------- | ------------------------------ |
-| **Render**         | ✅ Yes                                    | Easiest for FastAPI            |
-| **Railway**        | ✅ Yes                                    | Good, simple UI                |
-| **Replit**         | ✅ Free basic plan                        | Easy but can sleep             |
-| **Deta**           | ❌ No longer supports new Python projects |                                |
-| **Fly.io**         | ✅ Yes                                    | Lightweight, more setup        |
-| **PythonAnywhere** | ✅ Yes                                    | Best for small FastAPI apps    |
-| **Vercel**         | ❌ Not for Python                         | Only for frontend like Next.js |
+📦 requirements.txt
+fastapi==0.100.1
+uvicorn==0.23.2
+openai==1.93.0
+pydantic==2.11.5
+python-dotenv==1.0.1
 
-⚠️ Note: Free plans on Render and Railway can sleep after 15 minutes of inactivity (can be re-woken when visited).
 
-🌐 Step-by-Step Guide to Deploy FastAPI on Render
-1. Prepare Your Backend Project for Deployment
+🤝 Connected Frontend
+🔗 Frontend GitHub Repo
+💬 Built with Next.js & TypeScript
 
-Inside backend/, create these 2 files:
+🙏 Acknowledgements
+Developed with ❤️ by Azmat Ali
+Powered by FastAPI, OpenAI, and Render
+Secure API communication via .env
+Connected to a responsive chat frontend
 
-requirements.txt
-fastapi
-uvicorn
-openai
+🧪 Try the API
+Example via curl:
+curl -X POST "https://health-wellness-agent2-backend.onrender.com/query?user_input=how to lose weight"
 
-start.sh
-#!/bin/bash
-uvicorn fast_api:app --host=0.0.0.0 --port=10000
 
-Make sure fast_api.py has this line:
-app = FastAPI()
-
-2. Push backend/ to GitHub
-
-Create a new GitHub repo
-
-Only push the backend/ folder (or full project if you want)
-
-3. Deploy on Render
-
-Go to: https://dashboard.render.com/
-
-Click "New + → Web Service"
-
-Connect GitHub
-Choose your repo and backend/ folder
-Build Command: (leave empty or pip install -r requirements.txt)
-Start Command: bash start.sh
-Set environment variable (in Render Dashboard):
-
-OPENAI_API_KEY=your-key
-
-Now your FastAPI backend is always online ✅
-
-🚀 Update Next.js to Talk to Live Backend
-In frontend/.env.local:
-
-NEXT_PUBLIC_BACKEND_URL=https://your-backend-name.onrender.com
-
-Make sure your API calls use:
-
-fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/query`, { ... })
-
-✅ Frontend (Next.js) Hosting
-Best options:
-
-Vercel → Best for Next.js
-
-Netlify → Also easy
-
-Steps for Vercel:
-
-Push frontend/ to GitHub
-
-Go to https://vercel.com/
-
-Click “New Project”
-
-Connect GitHub and select your repo
-
-Set environment variable:
-
-ini
-Copy
-Edit
-NEXT_PUBLIC_BACKEND_URL=https://your-backend-name.onrender.com
-Deploy
+📜 License
+This project is for educational and informational use only. Always consult a professional for medical guidance.
 
 🌍 Result:
 Your backend (FastAPI) runs on Render ✅
-
 Your frontend (Next.js) runs on Vercel ✅
-
 User opens frontend → It talks to live backend → AI gives response ✅
 
-🆓 Free Hosting Summary
+🎯 Goal
+Keep fast_api.py always online (as backend API)
+Deploy Next.js frontend that communicates with the backend
+Ensure both work even after system restart
+# -------------------------------------------------------------
+# Goal Setting Questions:
+# "I want to lose 10 pounds in 2 months"
+# "How can I build muscle effectively?"
+# "My goal is to improve my endurance"
 
-| Use                | Platform | Free? | Sleeps?          |
-| ------------------ | -------- | ----- | ---------------- |
-| Backend (FastAPI)  | Render   | ✅     | Yes (wakes up)   |
-| Backend (FastAPI)  | Railway  | ✅     | Yes (wakes up)   |
-| Frontend (Next.js) | Vercel   | ✅     | No (very stable) |
+# Meal Plan Questions:
+# "Can you suggest a vegetarian meal plan?"
+# "I need gluten-free meal ideas"
+# "What's a good vegan diet for weight loss?"
 
+# Workout Questions:
+# "Recommend a cardio workout routine"
+# "Suggest strength training exercises"
+# "What's a good HIIT workout?"
+
+# Combination Questions:
+# "I want to lose weight - suggest meals and workouts"
+# "Help me build muscle with diet and exercise plans"
+# General Health Questions:
+# "What are some healthy breakfast options?"
+
+# To Exit:
+# Type "exit" or "quit" at any time
+
+# The assistant will:
+# Analyze your goals
+# Provide personalized meal plans
+# Recommend suitable workouts
+# Maintain context during your conversation
+
+# ----------------------------------------------------------------------
 Press Ctrl + Shift + P → type Python: Select Interpreter
 
-
+https://health-wellness-agent2-backend.onrender.com/
+https://health-wellness-agent2-backend.onrender.com/docs
