@@ -58,12 +58,16 @@ Handles a health query. First tries local logic. If not understood, falls back t
   "source": "local",
   "tokens_used": null
 }
-If OpenAI is used:
+
+```
+#### If OpenAI is used:
+```
 {
   "response": "Include more fiber and vegetables in your diet.",
   "source": "openai",
   "tokens_used": 43
 }
+
 ```
 ---
 
@@ -187,6 +191,10 @@ Ensure both work even after system restart
  Provide personalized meal plans
  Recommend suitable workouts
  Maintain context during your conversation
+
+# -------------------------------------------------------------
+
+Prepared By : Azmat Ali Akbar
 
 # -------------------------------------------------------------
 Press Ctrl + Shift + P → type Python: Select Interpreter
