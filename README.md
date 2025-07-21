@@ -163,37 +163,32 @@ Keep fast_api.py always online (as backend API)
 Deploy Next.js frontend that communicates with the backend
 Ensure both work even after system restart
 # -------------------------------------------------------------
-# Goal Setting Questions:
-# "I want to lose 10 pounds in 2 months"
-# "How can I build muscle effectively?"
-# "My goal is to improve my endurance"
+ Goal Setting Questions:
+ "I want to lose 10 pounds in 2 months"
+ "How can I build muscle effectively?"
+ "My goal is to improve my endurance"
+ Meal Plan Questions:
+ "Can you suggest a vegetarian meal plan?"
+ "I need gluten-free meal ideas"
+ "What's a good vegan diet for weight loss?"
+ Workout Questions:
+ "Recommend a cardio workout routine"
+ "Suggest strength training exercises"
+ "What's a good HIIT workout?"
+ Combination Questions:
+ "I want to lose weight - suggest meals and workouts"
+ "Help me build muscle with diet and exercise plans"
+ General Health Questions:
+ "What are some healthy breakfast options?"
+ To Exit:
+ Type "exit" or "quit" at any time
+ The assistant will:
+ Analyze your goals
+ Provide personalized meal plans
+ Recommend suitable workouts
+ Maintain context during your conversation
 
-# Meal Plan Questions:
-# "Can you suggest a vegetarian meal plan?"
-# "I need gluten-free meal ideas"
-# "What's a good vegan diet for weight loss?"
-
-# Workout Questions:
-# "Recommend a cardio workout routine"
-# "Suggest strength training exercises"
-# "What's a good HIIT workout?"
-
-# Combination Questions:
-# "I want to lose weight - suggest meals and workouts"
-# "Help me build muscle with diet and exercise plans"
-# General Health Questions:
-# "What are some healthy breakfast options?"
-
-# To Exit:
-# Type "exit" or "quit" at any time
-
-# The assistant will:
-# Analyze your goals
-# Provide personalized meal plans
-# Recommend suitable workouts
-# Maintain context during your conversation
-
-# ----------------------------------------------------------------------
+# -------------------------------------------------------------
 Press Ctrl + Shift + P → type Python: Select Interpreter
 
 https://health-wellness-agent2-backend.onrender.com/
