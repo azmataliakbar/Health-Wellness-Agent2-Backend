@@ -64,6 +64,8 @@ If OpenAI is used:
   "source": "openai",
   "tokens_used": 43
 }
+```
+---
 
 🧠 How It Works
 Local Response First:
