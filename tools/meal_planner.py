@@ -4,15 +4,45 @@ from context import UserSessionContext
 
 async def generate_meal_plan(input: str, context) -> str:
     await asyncio.sleep(0)
-    
-    plans = {
-        "vegetarian": ["Lentil curry", "Veg stir fry", "Falafel wrap"],
-        "vegan": ["Tofu scramble", "Chickpea salad", "Vegan chili"],
-        "gluten-free": ["Grilled salmon", "Quinoa bowl", "Roast chicken"]
+
+    diet_plans = {
+        "keto": [
+            "🍳 **Breakfast**: Scrambled eggs with spinach and avocado",
+            "🥗 **Lunch**: Grilled chicken salad with avocado and olive oil dressing",
+            "🐟 **Dinner**: Grilled salmon with asparagus"
+        ],
+        "vegetarian": [
+            "🥣 **Breakfast**: Oatmeal with almond milk and fresh berries",
+            "🥗 **Lunch**: Chickpea salad with cucumbers and tomatoes",
+            "🍛 **Dinner**: Lentil curry with brown rice"
+        ],
+        "vegan": [
+            "🍳 **Breakfast**: Tofu scramble with bell peppers and spinach",
+            "🥗 **Lunch**: Chickpea salad with lemon-tahini dressing",
+            "🌶️ **Dinner**: Vegan chili with black beans and sweet potatoes"
+        ],
+        "gluten-free": [
+            "🥣 **Breakfast**: Greek yogurt with honey and berries",
+            "🥗 **Lunch**: Grilled chicken quinoa salad",
+            "🐟 **Dinner**: Baked salmon with steamed broccoli"
+        ]
     }
-    
-    for diet_type in plans:
-        if diet_type in input.lower():
-            return f"{diet_type.capitalize()} meal plan:\n" + "\n".join(f"- {meal}" for meal in plans[diet_type])
-    
-    return "Standard meal plan:\n- Grilled chicken\n- Steamed veggies\n- Brown rice"
+
+    input_lower = input.lower()
+    for diet in diet_plans:
+        if diet in input_lower:
+            meals = "\n".join(diet_plans[diet])
+            return f"🍽️ **{diet.capitalize()} Meal Plan**:\n\n{meals}"
+
+    # Fallback message
+    return (
+        "🍏 **General Nutrition Guidance**:\n\n"
+        "Popular Diets:\n"
+        "• 🥦 Vegetarian (plant-based + dairy/eggs)\n"
+        "• 🌱 Vegan (100% plant-based)\n"
+        "• 🚫 Gluten-Free (no wheat/barley/rye)\n"
+        "• 🥩 Keto (low-carb, high-fat)\n\n"
+        "💡 Try asking:\n"
+        "- 'keto or vegan or vegetarian or gluten-Free food / diet / meal'\n"
+        "- 'common or general food / diet / meal'"
+    )
